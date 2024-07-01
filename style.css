@@ -6,3 +6,20 @@ html, body {
 canvas {
   display: block;
 }
+
+.customInput {
+  font-size: 20px;
+  font-family: 'DungGeunMo', sans-serif;
+  border: 2px solid #fff;
+  background: rgba(0, 0, 0, 0);
+  color: #fff;
+  padding: 5px;
+  border-radius: 0;
+  outline: none;
+  text-align: center;
+}
+
+.customInput::placeholder {
+  color: #fff;
+  opacity: 0.5;
+}
