@@ -1,4 +1,4 @@
-// let 전역변수들
+// 전역 변수들
 let customFont;
 let stateNow = 'loading';
 let titleBG, mainBG, mainBG02, mainBG03, mainBG04, endingBG, story01, story02, story03, story04, story05, like;
