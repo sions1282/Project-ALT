@@ -25,7 +25,7 @@ let startButtonVisible = false; // 시작 버튼이 보이는지 여부
 
 // main 변수
 let userInput = '';
-let correctWords = ["기타", "기타연주", "기타연주하기"];
+let correctWords = ["기타", "기타연주", "기타연주하기", "guitar"];
 let input;
 let message = '';
 let phoneTouchCount = 0; // 폰 터치 횟수
@@ -137,10 +137,10 @@ function draw() {
 }
 
 function keyPressed() {
-    if (key === 'f') {
-        let fs = fullscreen();
-        fullscreen(!fs);
-    }
+    // if (key === 'f') {
+    //     let fs = fullscreen();
+    //     fullscreen(!fs);
+    // }
 
     // 엔터 키를 누르면 타이틀 번호 증가 및 텍스트, 이미지 갱신
     if (keyCode === ENTER) {
@@ -187,10 +187,10 @@ function keyPressed() {
         }
     }
 
-    // s를 누르면 스크린샷
-    if (key === 's') {
-        saveCanvas('screenshot', 'png');
-    }
+    // // s를 누르면 스크린샷
+    // if (key === 's') {
+    //     saveCanvas('screenshot', 'png');
+    // }
 }
 
 function mousePressed() {
@@ -485,8 +485,15 @@ function mousePressed() {
         lastClickTime7 = currentTime; // 마지막 클릭 시간 업데이트
     }
 
-    if (stateNow === 'ending' && mouseX > (width / 2) - 325 && mouseX < (width / 2) + 325 && mouseY > 100 && mouseY < 900) {
-        window.open('https://sions.notion.site/Project-ALT-de93e8a123524d1f8b117b4d8957dc47?pvs=4', '_blank');
+    if (stateNow === 'ending') {
+        // 첫 번째 사각형 그룹 클릭 영역
+        if (mouseX > (width / 2) - 250 && mouseX < (width / 2) + 250 && mouseY > 510 && mouseY < 610) {
+            window.open('https://sions.notion.site/Project-ALT-de93e8a123524d1f8b117b4d8957dc47?pvs=4', '_blank');
+        }
+        // 두 번째 사각형 그룹 클릭 영역
+        if (mouseX > (width / 2) - 250 && mouseX < (width / 2) + 250 && mouseY > 710 && mouseY < 810) {
+            window.open('https://sions.notion.site/PMI-Please-More-Information-TMI-e428b020853b4c07a2b065ebc175666c?pvs=4', '_blank');
+        }
     }
 }
 
@@ -778,7 +785,7 @@ function displayText2() {
     fill(0); // 검정색 텍스트
     textAlign(LEFT, TOP);
     textSize(35);
-    text("나 혼자 설정탭을 찾기는 어려울 것 같고…\n단축키로 활성화시켜야겠네.\n우측 측면 버튼을 빠르게 3번 누르는 거였지?", 810, 165);
+    text("나 혼자 설정탭을 찾기는 어려울 것 같고…\n단축키로 활성화시켜야겠네.\n스마트폰의 우측 측면 버튼을 빠르게 3번 누르는 거였지?", 810, 165);
 }
 
 function drawMain2() {
@@ -1166,59 +1173,72 @@ function drawEnding() {
 
     // 타이머가 1초(1000ms) 경과했을 때 텍스트 표시
     if (titleDisplayTime && millis() - titleDisplayTime >= 1000) {
-        fill(255); // 흰색 텍스트
-        textSize(40);
+        fill(255, 255, 0); // 노란색 텍스트
+        textSize(160); // "The End" 텍스트 크기
         textAlign(CENTER, CENTER);
-        text("The End\n \n플레이해주셔서 감사합니다!\n대체 텍스트에 대해 더 알고 싶으시다면 아래 버튼을 마우스로 클릭해주세요!", width / 2, 300);
+        text("The End", width / 2, 230); // y 좌표 330 -> 230으로 변경
 
-        noFill();
-        stroke(255);
-        strokeWeight(5);
-        rectMode(CENTER);
-        let x1 = width / 2;
-        let y1 = 760;
-        let w1 = 500;
-        let h1 = 100;
-        let w2 = 450;
-        let h2 = 70;
-
-        // 외부
-        rect(x1, y1, w1, h1);
-        // 내부
-        rect(x1, y1, w2, h2);
-
-        let rect1 = [
-            [x1 - w1 / 2, y1 - h1 / 2], // 왼쪽 상단
-            [x1 + w1 / 2, y1 - h1 / 2], // 오른쪽 상단
-            [x1 + w1 / 2, y1 + h1 / 2], // 오른쪽 하단
-            [x1 - w1 / 2, y1 + h1 / 2]  // 왼쪽 하단
-        ];
-
-        let rect2 = [
-            [x1 - w2 / 2, y1 - h2 / 2], // 왼쪽 상단
-            [x1 + w2 / 2, y1 - h2 / 2], // 오른쪽 상단
-            [x1 + w2 / 2, y1 + h2 / 2], // 오른쪽 하단
-            [x1 - w2 / 2, y1 + h2 / 2]  // 왼쪽 하단
-        ];
-
-        // 네 꼭짓점을 연결하는 선 그리기
-        for (let i = 0; i < 4; i++) {
-            line(rect1[i][0], rect1[i][1], rect2[i][0], rect2[i][1]);
-        }
-
-        // 시작 text
-        noStroke();
-        textSize(40);
-        textAlign(CENTER, CENTER);
-        fill(255, 200);
-        text("마우스로 클릭하세요!", x1, y1 + 95)
-
-
+        // 그 이후 텍스트
         fill(255);
-        textSize(50);
-        text("Web Page", x1, y1 - 5);
+        textSize(30); // 나머지 텍스트 크기
+        text("플레이해주셔서 대단히 감사합니다!\n'마우스'로 클릭하여 웹사이트에 방문하세요.", width / 2, 370); // y 좌표 470 -> 370으로 변경
+
+        // 첫 번째 사각형 그룹
+        drawRectangleGroup(width / 2, 560, "Project ALT", "대체 텍스트의 역사와 미래, 실제 사용법을 알아보아요!"); // y 좌표 660 -> 560으로 변경
+
+        // 두 번째 사각형 그룹
+        drawRectangleGroup(width / 2, 760, "게임 개발 TMI", "게임 기획 의도 및 TMI가 궁금하다면 놀러오세요!"); // y 좌표 860 -> 760으로 변경
     }
 }
+
+function drawRectangleGroup(x1, y1, textLabel, description) {
+    noFill();
+    stroke(255);
+    strokeWeight(5);
+    rectMode(CENTER);
+
+    let w1 = 500;
+    let h1 = 100;
+    let w2 = 450;
+    let h2 = 70;
+
+    // 외부 사각형
+    rect(x1, y1, w1, h1);
+    // 내부 사각형
+    rect(x1, y1, w2, h2);
+
+    let rect1 = [
+        [x1 - w1 / 2, y1 - h1 / 2], // 왼쪽 상단
+        [x1 + w1 / 2, y1 - h1 / 2], // 오른쪽 상단
+        [x1 + w1 / 2, y1 + h1 / 2], // 오른쪽 하단
+        [x1 - w1 / 2, y1 + h1 / 2]  // 왼쪽 하단
+    ];
+
+    let rect2 = [
+        [x1 - w2 / 2, y1 - h2 / 2], // 왼쪽 상단
+        [x1 + w2 / 2, y1 - h2 / 2], // 오른쪽 상단
+        [x1 + w2 / 2, y1 + h2 / 2], // 오른쪽 하단
+        [x1 - w2 / 2, y1 + h2 / 2]  // 왼쪽 하단
+    ];
+
+    // 네 꼭짓점을 연결하는 선 그리기
+    for (let i = 0; i < 4; i++) {
+        line(rect1[i][0], rect1[i][1], rect2[i][0], rect2[i][1]);
+    }
+
+    fill(255);
+    noStroke();
+    textSize(50);
+    textAlign(CENTER, CENTER);
+    text(textLabel, x1, y1 - 5);
+
+    // 설명 텍스트 추가
+    fill(150); // 회색 텍스트
+    textSize(20);
+    text(description, x1, y1 + 80); // 사각형 그룹 아래에 텍스트 배치
+}
+
+
 
 function onInputEvent() {
     if (this.value() === '') {
